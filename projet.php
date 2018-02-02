@@ -10,18 +10,6 @@ $context = stream_context_create($opts);
 $station = file_get_contents("http://www.velostanlib.fr/service/carto", NULL, $context); 
 
 $dataStation = simplexml_load_string($station);
-//var_dump($dataStation);
-
-
-//INFO STATION
-//$descrIn = $dataStation->addChild('descriptions');
-/*for($i=1;$i<=27;$i++){
-	$descr = file_get_contents("http://www.velostanlib.fr/service/stationdetails/nancy/".$i, NULL, $context);
-	$descr = simplexml_load_string($descr);
-	$dataStation->addChild('stations',$descr->asXML());
-}*/
-
-//var_dump($dataStation);
 
 //RECUPERATION DES DONNEES GPS
 $str = file_get_contents("http://ip-api.com/xml", NULL, $context); 
@@ -34,8 +22,6 @@ $str = file_get_contents("http://www.infoclimat.fr/public-api/gfs/xml?_ll=".$xml
 
 
 $XML = simplexml_load_string($str);
-//$gps = ["$xml->lat", "$xml->lon"];
-//$gps = [(string) $xml->lat, (string) $xml->lon];
 
 $xsl = new DOMDocument;
 $xsl->load('meteo.xsl');
@@ -66,9 +52,6 @@ $proc->importStyleSheet($xsl);
 
 $stationxsl = $proc->transformToXml($dataStation);
 
-/*for($i=1;$i<=27;$i++){
-	${'r'.$i} = $proc->transformToXml(${'t'.$i});
-}*/
 
 
 echo <<<END
@@ -96,8 +79,6 @@ END;
 	$lon = $xml->lon;
     echo"<div class='hidden' id='lat'>$lat</div>";
     echo"<div class='hidden' id='lon'>$lon</div>";
-    //echo $xslt->transformToXML($xml);
-    //echo $xslt->transformToXML($dataStation);
 echo <<<END
 	   		$carte
 			$meteo

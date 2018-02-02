@@ -9,6 +9,5 @@ $descr = simplexml_load_string($descr);
 $data = ["Vélos disponibles"=>$descr->available,"Places Disponibles"=>$descr->free];
 
 foreach($data as $key => $val){
-    //echo 'hi'.$key . 'fgg' . $val;
     echo "$key: $val<br/>";
 }
